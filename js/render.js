@@ -7,7 +7,7 @@ function renderCanvas() {
     var ctx = getCtx();
     var elCurrImg = getElCurrImg();
 
-    if(!canvas) return;
+    if (!canvas) return;
 
     var staticCanvas = document.querySelector('.static-canvas');
     var staticCanvasCtx = staticCanvas.getContext('2d');
@@ -67,78 +67,86 @@ function clickForTextBox(ev) {
     // if (!document.querySelector('#canvas-cover')) 
     createMemeTxt();
     gCurrTextBox = getMeme().txts[getMeme().txts.length - 1];
+    // gCurrTextBox = getCurrTxtById(getAttribute('data-id'));
+
 
     gCurrTextBox.pos = {
         x: getMousePos(canvas, ev).x,
         y: getMousePos(canvas, ev).y,
     };
-    console.log('ev',ev);
+    console.log('ev', ev);
     // create cover div
     var coverDiv = document.createElement('div');
-    coverDiv.setAttribute('id', 'canvas-cover');
-    coverDiv.style.width = canvas.width + 'px';
-    coverDiv.style.height = canvas.height + 'px';
+    coverDiv.setAttribute('id', `canvas-cover-${gCurrTextBox.id}`);
+    coverDiv.style['z-index'] = 2;
     coverDiv.style.position = 'absolute';
-    coverDiv.style.top = 0;
+    coverDiv.style.top = ev.clientY - gCurrTextBox.size * 1.2 + 'px';
+    coverDiv.style.left = ev.clientX + 'px';
 
     // create floating text box
     var inputTextBox = document.createElement('input');
     inputTextBox.setAttribute('id', `floatTextBox-${gCurrTextBox.id}`);
     inputTextBox.setAttribute('data-id', `${gCurrTextBox.id}`);
     inputTextBox.classList.add('floatTextBox');
-    var unfocusTextBox = unCoverCanvas.bind(null,`#floatTextBox-${gCurrTextBox.id}`)
+
+    var unfocusTextBox = unCoverCanvas.bind(null, `#floatTextBox-${gCurrTextBox.id}`)
     inputTextBox.onfocusout = unfocusTextBox;
-    // console.log('inputtextbox', inputTextBox);
-    var oninputTextBox = setTxtObjAndPrint.bind(null , `#floatTextBox-${gCurrTextBox.id}`);
+    
+    var oninputTextBox = setTxtObjAndPrint.bind(null, `#floatTextBox-${gCurrTextBox.id}`);
     inputTextBox.oninput = oninputTextBox;
     inputTextBox.onkeydown = function () {
+        gCurrTextBox = getCurrTxtById(this.getAttribute('data-id'));
+        // console.log('this',this.getAttribute('data-id'))
         var key = event.keyCode || event.charCode;
         var ctx = getCtx();
-        if (key == 8 || key == 46){
+        if (key == 8 || key == 46) {
             gCurrTextBox.txt = inputTextBox.value;
-            ctx.clearRect(gCurrTextBox.pos.x,gCurrTextBox.pos.y - gCurrTextBox.size,ctx.measureText(gCurrTextBox.txt).width,gCurrTextBox.pos.y - gCurrTextBox.size);
+            ctx.clearRect(gCurrTextBox.pos.x, gCurrTextBox.pos.y - gCurrTextBox.size, ctx.measureText(gCurrTextBox.txt).width, gCurrTextBox.pos.y - gCurrTextBox.size);
         }
     };
     inputTextBox.onclick = function (ev) {
         ev.stopPropagation();
+        gCurrTextBox = getCurrTxtById(this.getAttribute('data-id'));
+        this.focus();
         // console.log('elId', this.id.substring(13))
-        // console.log('this', this)
-        gCurrTextBox = getCurrTxtById(document.querySelector(`#floatTextBox-${gCurrTextBox.id}`).id.substring(13));
+        // console.log('this', this, this.getAttribute('data-id'))
         // console.log('gcurr',gCurrTextBox)
         // debugger
-        this.focus();
         // document.querySelector(`#floatTextBox-${gCurrTextBox.id}`).focus();
         console.log('input clicked')
     };
-    inputTextBox.style['z-index'] = 3;
+
+    inputTextBox.ondrag = function (ev) {
+        gCurrTextBox = getCurrTxtById(this.getAttribute('data-id'));
+        gCurrTextBox.pos.x = getMousePos(getCanvas(), ev).x;
+        gCurrTextBox.pos.y = getMousePos(getCanvas(), ev).y;
+        renderCanvas();
+    }
     // style & position textbox
     // inputTextBox.style = {
-    //     ['background-color']: 'transparent',
-    //     border: '1px dashed #d4d1d1',
-    //     position: 'absolute',
+        //     ['background-color']: 'transparent',
+        //     border: '1px dashed #d4d1d1',
+        //     position: 'absolute',
     //     top: (getMousePos(canvas, ev).y - 16.5) + 'px',
     //     left: (getMousePos(canvas, ev).x - 89) + 'px'
     // }
     // inputTextBox.autofocus;
-
+    
+    inputTextBox.style['z-index'] = 3;
     inputTextBox.style['background-color'] = 'transparent';
-    // inputTextBox.style.border = '1px dashed #d4d1d1';
     inputTextBox.style.position = 'absolute';
-    // inputTextBox.style['z-index'] = 3;
-    var factorX =  0; //(getMeme().id === 'blank')? -20 :
-    var factorY = 0;
-    inputTextBox.style.top = ev.clientY - gCurrTextBox.size - 4 + 'px';
-    // (gCurrTextBox.pos.y + factorY) + 'px';
-    inputTextBox.style.left = ev.clientX + 'px'; 
-    // (gCurrTextBox.pos.x + factorX) + 'px';
+    inputTextBox.style.top = ev.clientY - gCurrTextBox.size * 1.2 + 'px';
+    inputTextBox.style.left = ev.clientX + 'px';
     inputTextBox.style.color = 'transparent';
-    // inputTextBox.setAttribute('autofocus', '');
-    console.log('gCurrTextBox',gCurrTextBox);
+
+    console.log('gCurrTextBox', gCurrTextBox);
 
 
 
     $('.on-canvas').append(coverDiv);
     $('body').append(inputTextBox);
+
+    // focus new input
     document.querySelector(`#floatTextBox-${gCurrTextBox.id}`).focus();
     // console.log($('#canvas-cover')[0]);
 }
@@ -148,7 +156,7 @@ function unCoverCanvas(textBoxId) {
     // document.querySelector('.on-canvas').removeChild(canvasCover);
     var textbox = document.querySelector(textBoxId);
     // textbox.style.border = 0;
-    
+
     // console.log('unfocus')
     if (gCurrTextBox.txt === '') {
         getMeme().txts.splice(getCurrTxtIdxById(gCurrTextBox.id), 1);
@@ -166,7 +174,7 @@ function setTxtObjAndPrint(textBoxId) {
 
 function printTextOnCanvas(txtObj) {
     var ctx = getCtx();
-    console.log('txtObj',txtObj);
+    console.log('txtObj', txtObj);
 
     ctx.fillStyle = txtObj.color;
     ctx.font = `${txtObj.size}px ${txtObj.font}`;
@@ -226,13 +234,13 @@ function setPreview(prop) {
 }
 
 function changeColor(selectedColor) {
-    if(!gCurrTextBox) return;
+    if (!gCurrTextBox) return;
 
     gCurrTextBox.color = $(selectedColor).attr('id');
     setPreview('color');
 }
 //change tamplate color
-function changeTColor(colorInput){
+function changeTColor(colorInput) {
     let color = $(colorInput).attr('id');
 
     $("#color-input").val(color);
@@ -254,7 +262,7 @@ function closeEditor() {
 }
 
 function toggleEditor(canvas) {
-    if($('.canvas-style').hasClass('open')) {
+    if ($('.canvas-style').hasClass('open')) {
         closeEditor();
     } else {
         openEditor();
@@ -278,14 +286,14 @@ function createCard(img) {
 
 function createList(images) {
     $('.album__row').html('');
-    
+
     images.forEach(img => {
         createCard(img);
     });
 }
 
 // show side-bar
-$(window).scroll(function(){
+$(window).scroll(function () {
     if ($(this).scrollTop() > 100 && $("#img").hasClass("active")) {
         // $('.scrollToTop').fadeIn();
         $("#side-nav").addClass("navbar-left");
@@ -296,7 +304,7 @@ $(window).scroll(function(){
 });
 
 //Click event to scroll to top
-$('.scrollToTop').click(function(){
-    $('html, body').animate({scrollTop : 0},800);
+$('.scrollToTop').click(function () {
+    $('html, body').animate({ scrollTop: 0 }, 800);
     return false;
 });

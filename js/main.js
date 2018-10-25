@@ -66,11 +66,11 @@ function onFileInputChange(ev) {
 }
 
 function downloadImg(elLink) {
-    let dcanvas = getCanvas();
     let scanvas = document.querySelector('.static-canvas');
+    let dcanvas = getCanvas();
 
     var bgImgContent = scanvas.toDataURL('image/jpg');
-console.log(bgImgContent)
+    console.log(bgImgContent)
     var userContent = dcanvas.toDataURL('image/jpg');
 
     var downloadCanvas = document.createElement('canvas');
@@ -78,7 +78,9 @@ console.log(bgImgContent)
     downloadCanvas.width = dcanvas.width;
     downloadCanvas.height = dcanvas.height;
 
-    dcCtx.drawImage(0,0,downloadCanvas.width,downloadCanvas.height);
+    dcCtx.drawImage(scanvas,0, 0, downloadCanvas.width, downloadCanvas.height);
+    dcCtx.drawImage(dcanvas,0, 0, downloadCanvas.width, downloadCanvas.height);
 
-    elLink.href = bgImgContent + userContent.substring(22);
+    var memeContent = downloadCanvas.toDataURL('image/jpg');
+    elLink.href = memeContent; //bgImgContent + userContent.substring(22);
 }

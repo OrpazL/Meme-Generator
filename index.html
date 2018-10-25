@@ -55,8 +55,9 @@
         <div class="card-body select-img">
             <nav class="navbar navbar-expand-lg navbar-light ">
                 <form class="form-inline my-2 my-lg-0"  onsubmit="startSearch(event)">
-                    <input class="form-control mr-sm-2 search" type="search" placeholder="Search by key word" aria-label="Search">
+                    <input class="form-control mr-sm-2 search" type="search" placeholder="Search by key word" aria-label="Search" oninput="startSearch(event)">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <div class="autoComplite"></div>
                 </form>
             </nav>
 
@@ -228,6 +229,7 @@
     <script src="js/_canvas-service.js"></script>
     <script src="js/_canvas-rendering.js"></script>
     <script src="js/_canvas-controller.js"></script>
+    <script src="js/services/search.js"></script>
 
 </body>
 

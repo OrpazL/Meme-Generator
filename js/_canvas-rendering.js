@@ -70,6 +70,15 @@ function clickForTextBox(ev) {
     console.log('inputtextbox', inputTextBox)
 
     // style & position textbox
+    // inputTextBox.style = {
+    //     ['background-color']: 'transparent',
+    //     border: '1px dashed #d4d1d1',
+    //     position: 'absolute',
+    //     top: (getMousePos(canvas, ev).y - 16.5) + 'px',
+    //     left: (getMousePos(canvas, ev).x - 89) + 'px'
+    // }
+    // inputTextBox.autofocus;
+    
     inputTextBox.style['background-color'] = 'transparent';
     inputTextBox.style.border = '1px dashed #d4d1d1';
     inputTextBox.style.position = 'absolute';

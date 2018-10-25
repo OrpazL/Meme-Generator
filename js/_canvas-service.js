@@ -32,16 +32,26 @@ var gMeme = {
     txts: [
         {
             id: makeId(),
+            txt: '',
             font: 'sans-serif',
             size: 16,
             color: 'black',
+            pos: {
+                x: 20,
+                y: 50,
+            }
         },
     ],
 };
 
 function getElCurrImg() {
-    var currMemeObj = (getMeme() === undefined)? getBlankImg() : getMeme();
-    var imgObj = getImgById(currMemeObj.id);
+    var currMemeObj = getMeme();
+    var imgObj;
+    if (currMemeObj.id === 'blank') {
+        imgObj = getBlankImg();
+    } else {
+        imgObj = getImgById(currMemeObj.id);
+    }
     var elImg = $(`img[src="${imgObj.url}"]`);
     console.log('elImg:',currMemeObj);
     return elImg[0];
@@ -71,7 +81,7 @@ function getBlankImg() {
     };
 }
 
-function setMemeTxtById(id,txt = gMeme.txts[getCurrTxtIdxById(id)].txt,font = getCurrFontSizeById(id),size = getCurrFontSizeById(id),color = getCurrColorById(id),pos) {
+function setMemeTxtById(id,txt = gMeme.txts[getCurrTxtIdxById(id)].txt,font = getCurrFontById(id),size = getCurrFontSizeById(id),color = getCurrColorById(id),pos = getCurrTextBoxPosById(id)) {
     gMeme.txts[getCurrTxtIdxById(id)] = {
         id,
         txt,
@@ -81,7 +91,7 @@ function setMemeTxtById(id,txt = gMeme.txts[getCurrTxtIdxById(id)].txt,font = ge
         pos,
     };
 }
-function createMemeTxt(txt,font,size,color,pos) {
+function createMemeTxt(txt = '',font = 'sans-serif',size = 16,color = 'black',pos = {x: 20, y: 50}) {
     gMeme.txts.push({
         id: makeId(),
         txt,

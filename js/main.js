@@ -58,3 +58,27 @@ function getCanvas() {
 function getCtx() {
     return gCtx;
 }
+
+// upload image
+
+function onFileInputChange(ev) {
+    handleImageFromInput(ev, renderImage)
+}
+
+function downloadImg(elLink) {
+    let dcanvas = getCanvas();
+    let scanvas = document.querySelector('.static-canvas');
+
+    var bgImgContent = scanvas.toDataURL('image/jpg');
+console.log(bgImgContent)
+    var userContent = dcanvas.toDataURL('image/jpg');
+
+    var downloadCanvas = document.createElement('canvas');
+    var dcCtx = downloadCanvas.getContext('2d');
+    downloadCanvas.width = dcanvas.width;
+    downloadCanvas.height = dcanvas.height;
+
+    dcCtx.drawImage(0,0,downloadCanvas.width,downloadCanvas.height);
+
+    elLink.href = bgImgContent + userContent.substring(22);
+}

@@ -1,7 +1,7 @@
 function startSearch(e) {
     e.preventDefault();
 
-    const regex = new RegExp(escapeRegex($('.search').val()), 'gi');
+    const regex = new RegExp(escapeRegex($('.search__input').val()), 'gi');
     let images = findImages(regex);
 
     createList(images);

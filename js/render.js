@@ -165,8 +165,8 @@ function unCoverCanvas(textBoxId) {
 
 function setTxtObjAndPrint(textBoxId) {
     var textBox = document.querySelector(textBoxId);
-    setMemeTxtById(getMeme().txts[getMeme().txts.length - 1].id, textBox.value);
-    gCurrTextBox = getMeme().txts[getMeme().txts.length - 1];
+    setMemeTxtById(textBox.getAttribute('data-id'), textBox.value);
+    gCurrTextBox = getMeme().txts[getCurrTxtIdxById(textBox.getAttribute('data-id'))];
     printTextOnCanvas(gCurrTextBox);
     renderCanvas();
 }

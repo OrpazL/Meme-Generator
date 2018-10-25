@@ -1,0 +1,113 @@
+var gNextId = 1;
+var gImages = [
+    {id: gNextId++, url: './img/meme-imgs/1.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/2.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/3.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/4.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/5.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/6.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/7.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/8.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/9.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/10.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/11.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/12.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/13.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/14.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/15.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/16.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/17.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/18.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/19.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/20.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/21.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/22.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/23.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/24.jpg', keywords: ['happy']},
+    {id: gNextId++, url: './img/meme-imgs/25.jpg', keywords: ['happy']}
+];
+// var gMeme;
+var gMeme = {
+    selectedImgId: 'blank',
+    txts: [
+        {
+            id: makeId(),
+            font: 'sans-serif',
+            size: 16,
+            color: 'black',
+        },
+    ],
+};
+
+function getElCurrImg() {
+    var currImgObj = (getMeme() === undefined)? getBlankImg() : getMeme();
+    var elImg = $(`img[src="${currImgObj.url}"]`);
+    return elImg[0];
+}
+
+function setMemeById(id) {
+    gMeme = gImages.find(img => img.id === id);
+}
+
+function getImgs() {
+    return gImages;
+}
+
+function getMeme() {
+    return gMeme;
+}
+
+function getBlankImg() {
+    return {
+        id: 'blank',
+        url: './img/blank300x300.jpg',
+        keywords: ['blank']
+    };
+}
+
+function setMemeTxtById(id,txt = gMeme.txts[getCurrTxtIdxById(id)].txt,font = getCurrFontSizeById(id),size = getCurrFontSizeById(id),color = getCurrColorById(id),pos) {
+    gMeme.txts[getCurrTxtIdxById(id)] = {
+        id,
+        txt,
+        font,
+        size,
+        color,
+        pos,
+    };
+}
+function createMemeTxt(txt,font,size,color,pos) {
+    gMeme.txts.push({
+        id: makeId(),
+        txt,
+        font,
+        size,
+        color,
+        pos,
+    });
+}
+
+function getCurrTxtIdxById(id) {
+    return gMeme.txts.findIndex(txt => txt.id === id);
+}
+
+function getCurrColorById(id) {
+    return gMeme.txts.find(txt => txt.id === id).color;
+}
+
+function getCurrFontSizeById(id) {
+    return gMeme.txts.find(txt => txt.id === id).size;
+}
+
+function getCurrFontById(id) {
+    return gMeme.txts.find(txt => txt.id === id).font;
+}
+
+
+
+function getMousePos(canvas, ev) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: ev.clientX - rect.left,
+      y: ev.clientY - rect.top
+    };
+}

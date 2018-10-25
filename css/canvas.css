@@ -1,0 +1,34 @@
+.canvas-settings{
+    justify-content: center;
+    align-items: center;
+
+}
+
+.canvas-container {
+    justify-content: space-around;
+}
+
+/* .canvas {
+    max-width: 400px;
+} */
+
+.title-color {
+    width: 100%;
+    padding: 0;
+}
+
+.canvas {
+    outline: 1px solid black;
+}
+
+.text-box, .text-box-container {
+    z-index: 3;
+    outline: 1px dashed red;
+}
+
+#floatTextBox:focus {
+    outline: 0;
+}
+#floatTextBox {
+    text-align: center;
+}

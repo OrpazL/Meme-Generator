@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="lib/bs/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" type="image/png" href="img/logo.png">
+    <title>Meme Generator</title>
+</head>
+
+<body onload="init()">
+    <div class="bg-video">
+        <video class="bg-video__content" autoplay muted loop>
+            <source src="./lib/img/video.mp4" type="video/mp4">
+            <source src="./lib/img/video.webm" type="video/webm">
+            Your browser is not sepported!
+        </video>
+    </div>
+    <header class="header">
+        <!-- Image and text -->
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand d-flex" href="index.html">
+                <img src="img/9gag-logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                <span class="logo-text">Meme Generator</span>
+            </a>
+            <div class="lang lang-he"></div>
+            <div class="lang lang-en"></div>
+        </nav>
+
+        <div class="header__title">
+            <h1 class="title">Create your own meme</h1>
+        </div>
+    </header>
+    <div class="card text-center container">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="side-nav">
+                <li class="nav-item">
+                    <a id="img" class="nav-link active" href="#" onclick="handlePage('select-img' , this)">Select
+                        Background</a>
+                </li>
+
+                <li class="nav-item">
+                    <a id="template" class="nav-link" href="#" onclick="handlePage('select-text' , this)">create meme</a>
+                </li>
+
+                <li class="nav-item">
+                    <a id="generator" class="nav-link disabled" href="#" onclick="handlePage('select-generator' , this)">save
+                        & share</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body select-img">
+            <nav class="navbar navbar-expand-lg navbar-light ">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search by key word" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+
+            <h5 class="card-title">step one</h5>
+            <p class="card-text">select your image</p>
+            <div class="album py-5 ">
+                <div class="container">
+                    <div class="album__row row"></div>
+                </div>
+                <p class="float-right">
+                    <a href="#" class="scrollToTop btn-next">Back to top</a>
+                </p>
+            </div>
+
+            <a href="#" class="btn btn-next scrollToTop" onclick="nextPage('select-text', 'template')">next step
+                &rightarrow;</a>
+        </div>
+
+        <!-- CANVAS CREATION -->
+        <div class="card-body select-text d-none">
+            <h5 class="card-title">customize your meme</h5>
+            <div class="canvas-container container d-flex">
+                <div class="row row-canvas">
+                    <div class="col on-canvas">
+                        <canvas class="canvas" onclick="clickForTextBox(event)"></canvas>
+                    </div>
+
+                    <!-- <div class="col canvas-settings d-flex flex-column">
+                      <div>
+                            <label for="top-title">
+                                Solid top title:
+                                <input type="checkbox" name="top-title" class="top-title" onchange="renderCanvas()">
+                            </label>
+                            </div>
+                            <div>
+                                <label for="bottom-title">
+                                    Solid bottom title:
+                                    <input type="checkbox" name="bottom-title" class="bottom-title" onchange="renderCanvas()">
+                                </label>
+                            </div>
+                            <input type="color" class="title-color" value="#ffffff" onchange="renderCanvas()">
+                            <div class="text-box-container">
+                                <input type="text" class="text-box" />
+                        </div> -->
+
+                    <div class="col controllers-panel">
+                        <div class="canvas-style" onmouseover="setBlur()" onmouseout="removeBlur()">
+                            <h3 class="card-title canvas-title">canvas style</h3>
+                            <div>
+                                <label for="top-title">
+                                    Solid top title:
+                                    <input type="checkbox" name="top-title" class="top-title" onchange="renderCanvas()">
+                                </label>
+                            </div>
+                            <div>
+                                    <label for="bottom-title">
+                                        Solid bottom title:
+                                        <input type="checkbox" name="bottom-title" class="bottom-title" onchange="renderCanvas()">
+                                    </label>
+                                </div>
+                        </div>
+
+                        <h5 class="card-title controllers-title">text style</h5>
+                        <div class="controllers-item text-preview">Preview Text</div>
+                        <div class="controllers-item font-style">
+                            <span class="text">sans-serif</span>
+                            <span class="right-span" onclick="openFontNav('#font-picker')"> | &#x3e;</span>
+                        </div>
+                        <div id="font-picker" class="nav-background">
+                            <h5 class="card-title controllers-title">
+                                <span class="left-span" onclick="closeNav('#font-picker')">&#x3c; </span>
+                                select font
+                            </h5>
+                            <ul class="font-list">
+                                <li class="font-item" onclick="changeFont(this)">sans-serif</li>
+                                <li class="font-item" onclick="changeFont(this)">chunkfive</li>
+                                <li class="font-item" onclick="changeFont(this)">roboto</li>
+                                <li class="font-item" onclick="changeFont(this)">lato</li>
+                                <li class="font-item" onclick="changeFont(this)">leagueGothic</li>
+                            </ul>
+                        </div>
+
+                        <div class="controllers-item font-size">
+                            <span class="minus left-span" onclick="changeFontSise(this)">&#x2212; |</span>
+                            <span class="size-val"> 16 </span>
+                            <span class="plus right-span" onclick="changeFontSise(this)">| &#x2b;</span>
+                        </div>
+
+                        <div class="controllers-item color-wheel">
+                            <ul class="color-wheel-list">
+                                <li id="black" class="color-item" onclick="changeColor(this)"></li>
+                                <li id="yellow" class="color-item" onclick="changeColor(this)"></li>
+                                <li id="red" class="color-item" onclick="changeColor(this)"></li>
+                                <li id="blue" class="color-item" onclick="changeColor(this)"></li>
+                                <li class="color-item add-color" onclick="openFontNav('#color-picker')"> <span> &#x2b;
+                                    </span></li>
+                            </ul>
+                        </div>
+                        <div id="color-picker" class="nav-background">
+                            <h5 class="card-title controllers-title">
+                                <span class="left-span" onclick="closeNav('#color-picker')">&#x3c; </span>
+                                select color
+                            </h5>
+                            <div class="wheel hidden" id="colorWheel"></div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <img src="./img/blank300x300.jpg" class="d-none">
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+
+    <!-- <div class="card-body select-template d-none">
+            <h5 class="card-title">template</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div> -->
+
+    <div class="card-body select-generator d-none">
+        <h5 class="card-title">generator</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+    </div>
+
+    <footer class="footer">
+        <!-- <div class="footer__logo"></div>
+        <p class="footer__contact">footer</p> -->
+        <div class="jumbotron bg-dark">
+            <div class="container">
+                <h1 class="display-4">Fluid jumbotron</h1>
+                <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="lib/jquery/jquery-3.3.1.min.js"></script>
+    <script src="lib/iro.js-master/iro.min.js"></script>
+    <script src="lib/iro.js-master/colorPicker.js"></script>
+    <script src="lib/bs/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/_gallery-service.js"></script>
+    <script src="js/_gallery-rendering.js"></script>
+    <script src="js/_gallery-controller.js"></script>
+    <script src="js/_canvas-settings-rendering.js"></script>
+    <script src="js/_canvas-service.js"></script>
+    <script src="js/_canvas-rendering.js"></script>
+    <script src="js/_canvas-controller.js"></script>
+    
+</body>
+
+</html>

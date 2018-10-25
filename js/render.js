@@ -307,3 +307,10 @@ $('.scrollToTop').click(function () {
     $('html, body').animate({ scrollTop: 0 }, 800);
     return false;
 });
+
+$(window).resize(function(){
+
+    if ($(window).width() <= 960) {  
+        $('.bg-video').html('');
+    }
+});

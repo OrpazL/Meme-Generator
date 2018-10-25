@@ -82,3 +82,4 @@ console.log(bgImgContent)
 
     elLink.href = bgImgContent + userContent.substring(22);
 }
+

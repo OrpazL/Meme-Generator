@@ -75,32 +75,6 @@ body {
     text-align: center;
 }
 
-@media (max-width: 768px) {
-    .html {
-        font-size: 50%;
-    }
-
-    .title {
-        font-size: 3rem; 
-    }
-
-    .container {
-        max-width: 90%; 
-    }
-}
-
-@media (max-width: 576px) {
-    
-    .container {
-        max-width: 100%;
-        padding: 0;
-    }
-    .col-lg-3 {
-        margin: 0 2rem;
-    }
-}
-
-
 .navbar-brand {
     align-items: center;
 
@@ -473,4 +447,32 @@ input[type='radio']:checked + .tamplate {
     width: 40%;
     margin: 0 auto;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 3rem; 
+    }
+
+    .container {
+        max-width: 90%; 
+    }
+}
+
+@media (max-width: 576px) {
+    html {
+        font-size: 50%;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    .col-lg-3 {
+        margin: 1rem 2rem;
+        min-height: 25rem;
+    }
+    .card-img {
+        height: unset;
+    }
 }

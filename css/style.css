@@ -552,7 +552,7 @@ input[type='file'] {
 
 @media (max-width: 992px) {
     .container {
-        max-width: 90%; 
+        width: 100%; 
     }
     div.canvas-container .container{
         margin: 0;
@@ -565,21 +565,21 @@ input[type='file'] {
         justify-content: center;
         align-items: center;
     }
-    canvas {
-        position: unset;
+    .on-canvas {
+        position: relative;
+    }
+
+    .dynamic-canvas {
+        left: 50% !important;
+        transform: translateX(-50%);
+        top: 10px;
     }
     .controllers-panel {
         clip-path: polygon(0 40%, 5% 40%, 5% 0, 85% 0%, 100% 0, 100% 15%, 100% 85%, 100% 100%, 5% 100%, 5% 60%, 0 60%);
     }
-}
 
-@media (max-width: 768px) {
-    .title {
-        font-size: 3rem; 
-    }
-
-    .container {
-        max-width: 90%; 
+    h1.title {
+        display: none;
     }
 }
 
@@ -588,8 +588,11 @@ input[type='file'] {
         font-size: 50%;
     }
 
+    .header {
+        display: none;
+    }
+
     .container {
-        max-width: 100%;
         padding: 0;
     }
     .col-lg-3 {

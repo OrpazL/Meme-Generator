@@ -2,9 +2,9 @@ function startSearch(e) {
     e.preventDefault();
 
     const regex = new RegExp(escapeRegex($('.search').val()), 'gi');
-
+    console.log('submit')
     let images = findImages(regex);
-    console.log(options);
+    // console.log(options);
     createList(images);
 }
 
@@ -13,5 +13,5 @@ function escapeRegex(text) {
 }
 
 function findImages(regex) {
-    return gImages.filter(img => img.keywords.find(keyword => regex.test(keyword)) !== undefined );
+    return getImgs().filter(img => img.keywords.find(keyword => regex.test(keyword)) !== undefined );
 }

@@ -126,7 +126,6 @@ function getCurrFontById(id) {
 
 function getMousePos(canvas, ev) {
     var rect = canvas.getBoundingClientRect();
-    console.log(rect);
     
     return {
       x: ev.clientX - rect.left,

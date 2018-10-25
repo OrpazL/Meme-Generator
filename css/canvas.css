@@ -6,6 +6,7 @@
 
 .canvas-container {
     justify-content: space-around;
+    min-height: 420px;
 }
 
 /* .canvas {
@@ -22,6 +23,8 @@
 }
 .on-canvas {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 /* .text-box, .text-box-container {

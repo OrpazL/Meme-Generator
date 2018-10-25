@@ -99,6 +99,11 @@ function clickForTextBox(ev) {
         // debugger
         // document.querySelector(`#floatTextBox-${gCurrTextBox.id}`).focus();
         console.log('input clicked')
+        setPreview('font');
+        setPreview('size');
+        setPreview('color');
+        $('.size-val').text(gCurrTextBox.size);
+        $('.text').text(gCurrTextBox.font);
     };
 
     inputTextBox.ondrag = function (ev) {
@@ -120,7 +125,7 @@ function clickForTextBox(ev) {
     inputTextBox.style['z-index'] = 3;
     inputTextBox.style['background-color'] = 'transparent';
     inputTextBox.style.position = 'absolute';
-    inputTextBox.style.top = ev.clientY - gCurrTextBox.size * 1.2 + 'px';
+    inputTextBox.style.top = ev.clientY - gCurrTextBox.size + 'px';
     inputTextBox.style.left = ev.clientX + 'px';
     inputTextBox.style.color = 'transparent';
 
@@ -142,7 +147,7 @@ function unCoverCanvas(textBoxId) {
     var textbox = document.querySelector(textBoxId);
     // textbox.style.border = 0;
 
-    // console.log('unfocus')
+    // DELETE EMPTY TXTS
     if (gCurrTextBox.txt === '') {
         getMeme().txts.splice(getCurrTxtIdxById(gCurrTextBox.id), 1);
         return;
@@ -178,6 +183,7 @@ function getCurrTextBoxPosById(id) {
 
 
 /****** CANVAS SETTINGS RENDERING ******/
+
 function openFontNav(navName) {
     $(navName).addClass('open-nav');
     if (navName === '#color-picker') $('#colorWheel').fadeIn();
@@ -193,6 +199,7 @@ function changeFont(elFont) {
     gCurrTextBox.font = $(elFont).text();
     closeNav('.nav-background');
     setPreview('font');
+    renderCanvas();
 }
 
 function changeFontSize(sign) {
@@ -201,6 +208,7 @@ function changeFontSize(sign) {
 
     $('.size-val').text(gCurrTextBox.size);
     setPreview('size');
+    renderCanvas();
 }
 
 function setPreview(prop) {
@@ -223,6 +231,7 @@ function changeColor(selectedColor) {
 
     gCurrTextBox.color = $(selectedColor).attr('id');
     setPreview('color');
+    renderCanvas();
 }
 //change tamplate color
 function changeTColor(colorInput) {

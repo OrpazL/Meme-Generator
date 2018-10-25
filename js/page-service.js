@@ -91,7 +91,7 @@ function setMemeTxtById(id,txt = gMeme.txts[getCurrTxtIdxById(id)].txt,font = ge
         pos,
     };
 }
-function createMemeTxt(txt = '',font = 'sans-serif',size = 16,color = 'black',pos = {x: 20, y: 50}) {
+function createMemeTxt(txt = '',font = 'sans-serif',size = gMeme.txts[gMeme.txts.length - 1].size ,color = 'black',pos = {x: 20, y: 50}) {
     gMeme.txts.push({
         id: makeId(),
         txt,

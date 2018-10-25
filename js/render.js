@@ -4,7 +4,6 @@ var gCurrTextBox;
 
 function renderCanvas() {
     var canvas = getCanvas();
-    var ctx = getCtx();
     var elCurrImg = getElCurrImg();
 
     if (!canvas) return;

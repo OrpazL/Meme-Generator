@@ -1,15 +1,18 @@
 //select image
 function selectImg(id) {
-    if (gCurrImg) {
-        $('#' + gCurrImg.id).removeClass("selected");
+    var currImg = getMeme();
+    if (currImg) {
+        $('#' + currImg.id).removeClass("selected");
 
-        if (id === gCurrImg.id) {
-            gCurrImg = undefined;
+        if (id === currImg.id) {
+            currImg = undefined;
             return;
+        } else {
+            currImg.id = id
         }
     }
 
-    gCurrImg = gImages.find(image => image.id === id);
+    // currImg = gImages.find(image => image.id === id);
 
     $('#' + id).addClass('selected');
 }

@@ -28,7 +28,7 @@ var gImages = [
 ];
 // var gMeme;
 var gMeme = {
-    selectedImgId: 'blank',
+    id: 'blank',
     txts: [
         {
             id: makeId(),
@@ -40,9 +40,15 @@ var gMeme = {
 };
 
 function getElCurrImg() {
-    var currImgObj = (getMeme() === undefined)? getBlankImg() : getMeme();
-    var elImg = $(`img[src="${currImgObj.url}"]`);
+    var currMemeObj = (getMeme() === undefined)? getBlankImg() : getMeme();
+    var imgObj = getImgById(currMemeObj.id);
+    var elImg = $(`img[src="${imgObj.url}"]`);
+    console.log('elImg:',currMemeObj);
     return elImg[0];
+}
+
+function getImgById(id) {
+    return gImages.find(img => img.id === id);
 }
 
 function setMemeById(id) {

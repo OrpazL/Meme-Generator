@@ -16,6 +16,11 @@ function renderCanvas() {
     // draw image
     ctx.drawImage(img, 0, 0, 400, elCurrImg.naturalHeight * (400 / elCurrImg.naturalWidth));
     setCanvasTemplate();
+
+    var memeTxts = getMeme().txts;
+    memeTxts.forEach(txt => {
+        printTextOnCanvas(txt.txt, txt.pos.x, txt.pos.y);
+    });
 }
 
 function setCanvasTemplate() {
@@ -88,15 +93,15 @@ function unCoverCanvas() {
 
 }
 
-function printTextOnCanvas(txt, x, y) {
+function printTextOnCanvas(txtObj) {
     var ctx = getCtx();
-    var currColor = getCurrColor();
-    var currFont = getCurrFont();
-    var currFontSize = getCurrFontSize();
+    // var currColor = getCurrColor();
+    // var currFont = getCurrFont();
+    // var currFontSize = getCurrFontSize();
 
-    ctx.fillStyle = currColor;
-    ctx.font = `${currFontSize}px ${currFont}`;
-    ctx.fillText(txt, x, y);
+    ctx.fillStyle = txtObj.color;
+    ctx.font = `${txtObj.size}px ${txtObj.font}`;
+    ctx.fillText(txtObj.txt, txtObj.pos.x, txtObj.pos.y);
 }
 
 function setCurrTextBoxPosById(id) {

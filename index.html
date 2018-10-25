@@ -46,25 +46,22 @@
                     <a id="template" class="nav-link" href="#" onclick="handlePage('select-text' , this)">create meme</a>
                 </li>
 
-                <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        options
-                    </a>
-                    
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Share</a>
-                        <a class="dropdown-item" href="#">Download</a>
-                    </div>
-                </div>
             </ul>
         </div>
         <div class="card-body select-img">
-            <nav class="navbar navbar-expand-lg navbar-light ">
-                <form class="form-inline my-2 my-lg-0"  onsubmit="startSearch(event)">
-                    <input class="form-control mr-sm-2 search" type="search" placeholder="Search by key word" aria-label="Search" oninput="startSearch(event)">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    <div class="autoComplite"></div>
+            <nav class="navbar-form">
+                <form class="search-form search"  onsubmit="startSearch(event)">
+                    <input class="search__input" type="search" placeholder="Search by key word" aria-label="Search" oninput="startSearch(event)">
+                    <button class="search__button">
+                        <svg class="search__icon">
+                            <use xlink:href="img/sprite.svg#icon-magnifying-glass"></use>
+                        </svg>
+                    </button>
                 </form>
+
+                
+                <input type="file" name="image" onchange="onFileInputChange(event)" />
+                
             </nav>
 
             <h5 class="card-title">select your image</h5>
@@ -84,6 +81,19 @@
         <!-- CANVAS CREATION -->
         <div class="card-body select-text d-none">
             <h5 class="card-title">customize your meme</h5>
+            <div class="dropdown">
+                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    options
+                </a>
+                
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item share" href="#">Share</a>
+                    <a class="dropdown-item" href="#" onclick="downloadImg(this)" download="my-img.">Download</a>
+                </div>
+            </div>
+
+            <div class="publish-form-container"></div>
+
             <div class="canvas-container container d-flex">
                 <div class="row row-canvas">
                     <div class="col on-canvas">
@@ -210,6 +220,7 @@
     <script src="lib/pooper/popper.min.js"></script>
     <script src="lib/bs/bootstrap.min.js"></script>
 
+    <script src="js/filesHandler.js"></script>
     <script src="js/main.js"></script>
     <script src="js/util-service.js"></script>
     <script src="js/page-service.js"></script>

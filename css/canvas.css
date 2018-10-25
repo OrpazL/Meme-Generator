@@ -38,7 +38,9 @@
 #floatTextBox {
     text-align: center;
 }
-
+.floatTextBox {
+    border: 0;
+}
 .floatTextBox:focus {
     border: 1px dashed #d4d1d1;
 }

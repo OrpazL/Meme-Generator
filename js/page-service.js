@@ -106,6 +106,10 @@ function getCurrTxtIdxById(id) {
     return gMeme.txts.findIndex(txt => txt.id === id);
 }
 
+function getCurrTxtById(id) {
+    return gMeme.txts.find(txt => txt.id === id);
+}
+
 function getCurrColorById(id) {
     return gMeme.txts.find(txt => txt.id === id).color;
 }
@@ -122,6 +126,8 @@ function getCurrFontById(id) {
 
 function getMousePos(canvas, ev) {
     var rect = canvas.getBoundingClientRect();
+    console.log(rect);
+    
     return {
       x: ev.clientX - rect.left,
       y: ev.clientY - rect.top

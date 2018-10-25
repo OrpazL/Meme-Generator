@@ -4,7 +4,7 @@ function startSearch(e) {
     const regex = new RegExp(escapeRegex($('.search').val()), 'gi');
 
     let images = findImages(regex);
-    console.log(options);
+
     createList(images);
 }
 

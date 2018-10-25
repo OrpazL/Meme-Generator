@@ -7,6 +7,8 @@ function renderCanvas() {
     var ctx = getCtx();
     var elCurrImg = getElCurrImg();
 
+    if(!canvas) return;
+
     canvas.width = 400;
     canvas.height = elCurrImg.naturalHeight * (400 / elCurrImg.naturalWidth);
     // setCanvas(canvas);
@@ -68,16 +70,6 @@ function clickForTextBox(ev) {
     inputTextBox.setAttribute('id', 'floatTextBox')
     inputTextBox.onblur = unCoverCanvas;
     console.log('inputtextbox', inputTextBox)
-
-    // style & position textbox
-    // inputTextBox.style = {
-    //     ['background-color']: 'transparent',
-    //     border: '1px dashed #d4d1d1',
-    //     position: 'absolute',
-    //     top: (getMousePos(canvas, ev).y - 16.5) + 'px',
-    //     left: (getMousePos(canvas, ev).x - 89) + 'px'
-    // }
-    // inputTextBox.autofocus;
     
     inputTextBox.style['background-color'] = 'transparent';
     inputTextBox.style.border = '1px dashed #d4d1d1';
@@ -168,16 +160,39 @@ function setPreview(prop) {
 }
 
 function changeColor(selectedColor) {
+    if(!gCurrTextBox) return;
+
     gCurrTextBox.color = $(selectedColor).attr('id');
     setPreview('color');
 }
+//change tamplate color
+function changeTColor(colorInput){
+    let color = $(colorInput).attr('id');
 
-function setBlur() {
-    $('.controllers-panel>*:not(.canvas-style)').addClass('blur-background');
+    $("#color-input").val(color);
+    renderCanvas();
 }
 
-function removeBlur() {
-    $('.controllers-panel>*:not(.canvas-style)').removeClass('blur-background');
+function openEditor() {
+    $('.controllers-panel>*:not(.canvas-style)').addClass('blur-background');
+
+    $('.canvas-style').addClass('open');
+    $('.canvas-title').text('Go back')
+}
+
+function closeEditor() {
+    $('.controllers-panel>*:not(.canvas-style)').removeClass('blur-background open');
+
+    $('.canvas-style').removeClass('open');
+    $('.canvas-title').text('more options')
+}
+
+function toggleEditor(canvas) {
+    if($('.canvas-style').hasClass('open')) {
+        closeEditor();
+    } else {
+        openEditor();
+    }
 }
 
 
@@ -185,7 +200,7 @@ function removeBlur() {
 
 /******** GALLERY RENDERING ********/
 function createCard(img) {
-    let card = $(`<div id="${img.id}" class="col-lg-3 col-md-6 col-sm-12">
+    let card = $(`<div id="${img.id}" class="col-lg-3 col-md-4 col-sm-6">
                         <div class="card bg-dark text-white">
                             <img class="card-img" src="${img.url}" alt="Card image" onclick="selectImg(${img.id});nextPage('select-text', 'template')" >
                         </div>
@@ -196,13 +211,15 @@ function createCard(img) {
 }
 
 function createList(images) {
+    $('.album__row').html('');
+    
     images.forEach(img => {
         createCard(img);
     });
 }
 
 // show side-bar
-$(window).scroll(function () {
+$(window).scroll(function(){
     if ($(this).scrollTop() > 100 && $("#img").hasClass("active")) {
         // $('.scrollToTop').fadeIn();
         $("#side-nav").addClass("navbar-left");
@@ -213,7 +230,7 @@ $(window).scroll(function () {
 });
 
 //Click event to scroll to top
-$('.scrollToTop').click(function () {
-    $('html, body').animate({ scrollTop: 0 }, 800);
+$('.scrollToTop').click(function(){
+    $('html, body').animate({scrollTop : 0},800);
     return false;
 });

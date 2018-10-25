@@ -34,7 +34,7 @@
             <h1 class="title">Create your own meme</h1>
         </div>
     </header>
-    <div class="card text-center container">
+    <div class="card text-center container main">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="side-nav">
                 <li class="nav-item">
@@ -46,10 +46,16 @@
                     <a id="template" class="nav-link" href="#" onclick="handlePage('select-text' , this)">create meme</a>
                 </li>
 
-                <li class="nav-item">
-                    <a id="generator" class="nav-link disabled" href="#" onclick="handlePage('select-generator' , this)">save
-                        & share</a>
-                </li>
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        options
+                    </a>
+                    
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Share</a>
+                        <a class="dropdown-item" href="#">Download</a>
+                    </div>
+                </div>
             </ul>
         </div>
         <div class="card-body select-img">
@@ -61,8 +67,7 @@
                 </form>
             </nav>
 
-            <h5 class="card-title">step one</h5>
-            <p class="card-text">select your image</p>
+            <h5 class="card-title">select your image</h5>
             <div class="album py-5 ">
                 <div class="container">
                     <div class="album__row row"></div>
@@ -86,38 +91,39 @@
                     </div>
 
                     <div class="col controllers-panel">
-                        <div class="canvas-style" onmouseover="setBlur()" onmouseout="removeBlur()">
-                            <h3 class="card-title canvas-title">canvas style</h3>
+                        <div class="canvas-style">
+                            <h3 class="card-title canvas-title" onclick="toggleEditor()">more options</h3>
                             <h5 class="card-title">select tamplate</h5>
                             
                             <div class="tamplates">
+
+                                <input type="radio" name="tamplate" id="top-title" class="top-title" onchange="renderCanvas()">
                                 <label class="tamplate"for="top-title">
                                     <span class="top">top</span>
-                                    <input type="radio" name="tamplate" id="top-title" class="top-title" onchange="renderCanvas()">
                                 </label>
 
+                                <input type="radio" name="tamplate" id="bottom-title" class="bottom-title" onchange="renderCanvas()">
                                 <label class="tamplate"for="bottom-title">
                                     <span class="bottom bottom-fix">bottom</span>
-                                    <input type="radio" name="tamplate" id="bottom-title" class="bottom-title" onchange="renderCanvas()">
                                 </label>
 
+                                <input type="radio" name="tamplate" id="double-title" class="double-title" onchange="renderCanvas()">
                                 <label class="tamplate"for="double-title">
                                     <span class="top">top</span>
                                     <span class="bottom">bottom</span>
-                                    <input type="radio" name="tamplate" id="double-title" class="double-title" onchange="renderCanvas()">
                                 </label>
 
+                                <input type="radio" name="tamplate" id="solid" class="no-title" onchange="renderCanvas()" checked>
                                 <label class="tamplate"for="solid"> 
-                                    <input type="radio" name="tamplate" id="solid" class="no-title" onchange="renderCanvas()">
                                 </label>
                             </div>
 
                             <div class="tamplates-item color-wheel">
                                 <ul class="color-wheel-list">
-                                    <li id="black" class="color-item" onclick="changeColor(this)"></li>
-                                    <li id="yellow" class="color-item" onclick="changeColor(this)"></li>
-                                    <li id="red" class="color-item" onclick="changeColor(this)"></li>
-                                    <li id="blue" class="color-item" onclick="changeColor(this)"></li>
+                                    <li id="black" class="color-item" onclick="changeTColor(this)"></li>
+                                    <li id="yellow" class="color-item" onclick="changeTColor(this)"></li>
+                                    <li id="red" class="color-item" onclick="changeTColor(this)"></li>
+                                    <li id="blue" class="color-item" onclick="changeTColor(this)"></li>
                                     <li class="color-item add-color" onclick="openFontNav('#color-title')"> 
                                         <span> &#x2b;</span>
                                     </li>
@@ -130,12 +136,6 @@
 
                                 <div class="wheel hidden" id="colorWheelS"></div>
                                 <div class="selected-color title-background"><input type="hidden" name="colorate" id="color-input" class="title-color"></div>
-                            </div>
-                            <div>
-                                <label for="bottom-title">
-                                    Solid bottom title:
-                                    <input type="checkbox" name="bottom-title" class="bottom-title" onchange="renderCanvas()">
-                                </label>
                             </div>
                             
                         </div>
@@ -192,29 +192,12 @@
 
         </div>
         <img src="./img/blank300x300.jpg" class="d-none">
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-
-    <!-- <div class="card-body select-template d-none">
-            <h5 class="card-title">template</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div> -->
-
-    <div class="card-body select-generator d-none">
-        <h5 class="card-title">generator</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
     </div>
 
     <footer class="footer">
-        <!-- <div class="footer__logo"></div>
-        <p class="footer__contact">footer</p> -->
-        <div class="jumbotron bg-dark">
-            <div class="container">
-                <h1 class="display-4">Fluid jumbotron</h1>
-                <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        <div class="footer-jumbotron jumbotron">
+            <div class="footer-container container">
+                <p class="lead">Made by Orpaz Lazar and Ilan roitlender</p>
             </div>
         </div>
     </footer>
@@ -222,6 +205,8 @@
     <script src="lib/jquery/jquery-3.3.1.min.js"></script>
     <script src="lib/iro.js-master/iro.min.js"></script>
     <script src="lib/iro.js-master/colorPicker.js"></script>
+    <script src="lib/tooltip/tooltip.min.js"></script>
+    <script src="lib/pooper/popper.min.js"></script>
     <script src="lib/bs/bootstrap.min.js"></script>
 
     <script src="js/main.js"></script>

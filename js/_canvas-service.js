@@ -53,7 +53,7 @@ function getElCurrImg() {
         imgObj = getImgById(currMemeObj.id);
     }
     var elImg = $(`img[src="${imgObj.url}"]`);
-    console.log('elImg:',currMemeObj);
+    // console.log('elImg:',currMemeObj);
     return elImg[0];
 }
 

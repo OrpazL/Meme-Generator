@@ -66,21 +66,11 @@ function onFileInputChange(ev) {
 }
 
 function downloadImg(elLink) {
-    let scanvas = document.querySelector('.static-canvas');
+    // let scanvas = document.querySelector('.static-canvas');
     let dcanvas = getCanvas();
 
-    var bgImgContent = scanvas.toDataURL('image/jpg');
-    console.log(bgImgContent)
-    var userContent = dcanvas.toDataURL('image/jpg');
+    // dcCtx.drawImage(scanvas,0, 0, downloadCanvas.width, downloadCanvas.height);
 
-    var downloadCanvas = document.createElement('canvas');
-    var dcCtx = downloadCanvas.getContext('2d');
-    downloadCanvas.width = dcanvas.width;
-    downloadCanvas.height = dcanvas.height;
-
-    dcCtx.drawImage(scanvas,0, 0, downloadCanvas.width, downloadCanvas.height);
-    dcCtx.drawImage(dcanvas,0, 0, downloadCanvas.width, downloadCanvas.height);
-
-    var memeContent = downloadCanvas.toDataURL('image/jpg');
+    var memeContent = dcanvas.toDataURL('image/jpg');
     elLink.href = memeContent; //bgImgContent + userContent.substring(22);
 }

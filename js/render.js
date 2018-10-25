@@ -4,33 +4,25 @@ var gCurrTextBox;
 
 function renderCanvas() {
     var canvas = getCanvas();
+    var ctx = getCtx();
     var elCurrImg = getElCurrImg();
 
     if (!canvas) return;
 
-    var staticCanvas = document.querySelector('.static-canvas');
-    var staticCanvasCtx = staticCanvas.getContext('2d');
 
     canvas.style.position = 'absolute';
-    staticCanvas.style.position = 'absolute';
-    staticCanvas.style['z-index'] = 0;
     canvas.style['z-index'] = 1;
-    staticCanvas.style.left = 0;
     canvas.style.left = 0;
-    // staticCanvas.offsetTop = 0;
 
-    // console.log('canvas left',canvas.offsetLeft)
     canvas.width = 400;
     canvas.height = elCurrImg.naturalHeight * (400 / elCurrImg.naturalWidth);
-    staticCanvas.width = 400;
-    staticCanvas.height = elCurrImg.naturalHeight * (400 / elCurrImg.naturalWidth);
 
 
     var img = new Image();
     img.src = elCurrImg.src;
 
     // draw image
-    staticCanvasCtx.drawImage(img, 0, 0, 400, elCurrImg.naturalHeight * (400 / elCurrImg.naturalWidth));
+    ctx.drawImage(img, 0, 0, 400, elCurrImg.naturalHeight * (400 / elCurrImg.naturalWidth));
     setCanvasTemplate();
 
     var memeTxts = getMeme().txts;
@@ -75,13 +67,7 @@ function clickForTextBox(ev) {
     };
     console.log('ev', ev);
     // create cover div
-    var coverDiv = document.createElement('div');
-    coverDiv.setAttribute('id', `canvas-cover-${gCurrTextBox.id}`);
-    coverDiv.style['z-index'] = 2;
-    coverDiv.style.position = 'absolute';
-    coverDiv.style.top = ev.clientY - gCurrTextBox.size * 1.2 + 'px';
-    coverDiv.style.left = ev.clientX + 'px';
-
+    
     // create floating text box
     var inputTextBox = document.createElement('input');
     inputTextBox.setAttribute('id', `floatTextBox-${gCurrTextBox.id}`);
@@ -142,7 +128,7 @@ function clickForTextBox(ev) {
 
 
 
-    $('.on-canvas').append(coverDiv);
+    // $('.on-canvas').append(coverDiv);
     $('body').append(inputTextBox);
 
     // focus new input

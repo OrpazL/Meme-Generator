@@ -4,7 +4,7 @@ var gCtx;
 function init() {
     createList(getImgs());
 
-    setCanvas(document.querySelector('.canvas'));
+    setCanvas(document.querySelector('.dynamic-canvas'));
     setCtx(gCanvas.getContext('2d'));
 
 }

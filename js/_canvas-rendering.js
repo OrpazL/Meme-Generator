@@ -9,15 +9,29 @@ function renderCanvas() {
 
     if(!canvas) return;
 
+    var staticCanvas = document.querySelector('.static-canvas');
+    var staticCanvasCtx = staticCanvas.getContext('2d');
+
+    canvas.style.position = 'absolute';
+    staticCanvas.style.position = 'absolute';
+    staticCanvas.style['z-index'] = 0;
+    canvas.style['z-index'] = 1;
+    staticCanvas.style.left = 0;
+    canvas.style.left = 0;
+    // staticCanvas.offsetTop = 0;
+
+    // console.log('canvas left',canvas.offsetLeft)
     canvas.width = 400;
     canvas.height = elCurrImg.naturalHeight * (400 / elCurrImg.naturalWidth);
-    // setCanvas(canvas);
+    staticCanvas.width = 400;
+    staticCanvas.height = elCurrImg.naturalHeight * (400 / elCurrImg.naturalWidth);
+
 
     var img = new Image();
     img.src = elCurrImg.src;
 
     // draw image
-    ctx.drawImage(img, 0, 0, 400, elCurrImg.naturalHeight * (400 / elCurrImg.naturalWidth));
+    staticCanvasCtx.drawImage(img, 0, 0, 400, elCurrImg.naturalHeight * (400 / elCurrImg.naturalWidth));
     setCanvasTemplate();
 
     var memeTxts = getMeme().txts;
@@ -50,9 +64,10 @@ function setCanvasTemplate() {
 
 function clickForTextBox(ev) {
     var canvas = getCanvas();
-    if (!document.querySelector('#canvas-cover')) createMemeTxt();
+    // if (!document.querySelector('#canvas-cover')) 
+    createMemeTxt();
     gCurrTextBox = getMeme().txts[getMeme().txts.length - 1];
-    
+
     gCurrTextBox.pos = {
         x: getMousePos(canvas, ev).x,
         y: getMousePos(canvas, ev).y,
@@ -67,35 +82,74 @@ function clickForTextBox(ev) {
 
     // create floating text box
     var inputTextBox = document.createElement('input');
-    inputTextBox.setAttribute('id', 'floatTextBox')
-    inputTextBox.onblur = unCoverCanvas;
-    console.log('inputtextbox', inputTextBox)
-    
+    inputTextBox.setAttribute('id', `floatTextBox-${gCurrTextBox.id}`)
+    inputTextBox.classList.add('floatTextBox');
+    var unfocusTextBox = unCoverCanvas.bind(null,`#floatTextBox-${gCurrTextBox.id}`)
+    inputTextBox.onfocusout = unfocusTextBox;
+    // console.log('inputtextbox', inputTextBox);
+    var oninputTextBox = setTxtObjAndPrint.bind(null , `#floatTextBox-${gCurrTextBox.id}`);
+    inputTextBox.oninput = oninputTextBox;
+    inputTextBox.onkeydown = function () {
+        var key = event.keyCode || event.charCode;
+        var ctx = getCtx();
+        if (key == 8 || key == 46){
+            gCurrTextBox.txt = inputTextBox.value;
+            ctx.clearRect(gCurrTextBox.pos.x,gCurrTextBox.pos.y - gCurrTextBox.size,ctx.measureText(gCurrTextBox.txt).width,gCurrTextBox.pos.y - gCurrTextBox.size);
+        }
+    };
+    inputTextBox.onclick = function (ev) {
+        ev.stopPropagation();
+        this.focus();
+        // document.querySelector(`#floatTextBox-${gCurrTextBox.id}`).focus();
+        console.log('input clicked')
+    };
+    inputTextBox.style['z-index'] = 3;
+    // style & position textbox
+    // inputTextBox.style = {
+    //     ['background-color']: 'transparent',
+    //     border: '1px dashed #d4d1d1',
+    //     position: 'absolute',
+    //     top: (getMousePos(canvas, ev).y - 16.5) + 'px',
+    //     left: (getMousePos(canvas, ev).x - 89) + 'px'
+    // }
+    // inputTextBox.autofocus;
+
     inputTextBox.style['background-color'] = 'transparent';
-    inputTextBox.style.border = '1px dashed #d4d1d1';
+    // inputTextBox.style.border = '1px dashed #d4d1d1';
     inputTextBox.style.position = 'absolute';
     // inputTextBox.style['z-index'] = 3;
-    inputTextBox.style.top = (getMousePos(canvas, ev).y - 16.5) + 'px';
-    inputTextBox.style.left = (getMousePos(canvas, ev).x - 89) + 'px';
-    inputTextBox.setAttribute('autofocus', '');
+    inputTextBox.style.top = (getMousePos(canvas, ev).y - 20) + 'px';
+    inputTextBox.style.left = (getMousePos(canvas, ev).x - 20) + 'px';
+    inputTextBox.style.color = 'transparent';
+    // inputTextBox.setAttribute('autofocus', '');
 
 
 
     $('.on-canvas').append(coverDiv);
     $('#canvas-cover').append(inputTextBox);
+    document.querySelector(`#floatTextBox-${gCurrTextBox.id}`).focus();
     // console.log($('#canvas-cover')[0]);
 }
 
-function unCoverCanvas() {
-    var textBox = document.querySelector('#floatTextBox');
+function unCoverCanvas(textBoxId) {
+    var canvasCover = document.querySelector('#canvas-cover');
+    document.querySelector('.on-canvas').removeChild(canvasCover);
+    var textbox = document.querySelector(textBoxId);
+    textbox.style.border = 0;
+    
+    // console.log('unfocus')
+    if (gCurrTextBox.txt === '') {
+        getMeme().txts.splice(getCurrTxtIdxById(gCurrTextBox.id), 1);
+        return;
+    }
+}
+
+function setTxtObjAndPrint(textBoxId) {
+    var textBox = document.querySelector(textBoxId);
     setMemeTxtById(getMeme().txts[getMeme().txts.length - 1].id, textBox.value);
     gCurrTextBox = getMeme().txts[getMeme().txts.length - 1];
     printTextOnCanvas(gCurrTextBox);
-
-    var canvasCover = document.querySelector('#canvas-cover');
-    document.querySelector('.on-canvas').removeChild(canvasCover);
-    // console.log('unfocus')
-
+    renderCanvas();
 }
 
 function printTextOnCanvas(txtObj) {
@@ -103,7 +157,7 @@ function printTextOnCanvas(txtObj) {
 
     ctx.fillStyle = txtObj.color;
     ctx.font = `${txtObj.size}px ${txtObj.font}`;
-    console.log('txtObj', txtObj)
+    // console.log('txtObj', txtObj)
     ctx.fillText(txtObj.txt, txtObj.pos.x, txtObj.pos.y);
 }
 

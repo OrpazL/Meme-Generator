@@ -20,15 +20,22 @@
 .canvas {
     outline: 1px solid black;
 }
-
-.text-box, .text-box-container {
-    z-index: 3;
-    outline: 1px dashed red;
+.on-canvas {
+    position: relative;
 }
 
-#floatTextBox:focus {
+/* .text-box, .text-box-container {
+    z-index: 3;
+    outline: 1px dashed red;
+} */
+
+.on-canvas input:focus {
     outline: 0;
 }
 #floatTextBox {
     text-align: center;
+}
+
+.floatTextBox:focus {
+    border: 1px dashed #d4d1d1;
 }

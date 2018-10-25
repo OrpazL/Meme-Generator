@@ -20,6 +20,9 @@
 .canvas {
     outline: 1px solid black;
 }
+.on-canvas {
+    position: relative;
+}
 
 .text-box, .text-box-container {
     z-index: 3;

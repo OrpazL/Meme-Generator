@@ -44,3 +44,9 @@
 .floatTextBox:focus {
     border: 1px dashed #d4d1d1;
 }
+
+@media (max-width: 420px) {
+    .canvas.dynamic-canvas {
+        transform:scale(0.75);
+    }
+}

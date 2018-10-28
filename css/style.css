@@ -16,8 +16,8 @@ body {
     line-height: 1.7;
     position: relative;
     min-height: 100vh;
+    min-width: 100vw;
 }
-
 * {
     box-sizing: border-box;
 }
@@ -486,7 +486,6 @@ input[type='file'] {
 }
 
 .footer-container .lead{
-    width: 40%;
     margin: 0 auto;
     text-align: center;
 }
@@ -562,6 +561,14 @@ input[type='file'] {
         padding: 0;
     }
 
+    .dropdown ,#imageForm{
+        position: absolute;
+        background-color: #1679e4;
+        border-radius: 3px;
+        top: 1.5rem;
+        right: 2rem;
+    }
+
     .row-canvas {
         display: flex;
         flex-direction: column;
@@ -581,12 +588,20 @@ input[type='file'] {
     .controllers-panel {
         -webkit-clip-path: polygon(35% 0, 65% 0, 70% 8%, 100% 8%, 100% 100%, 50% 100%, 20% 100%, 0 100%, 0 8%, 30% 8%);
         clip-path: polygon(35% 0, 65% 0, 70% 8%, 100% 8%, 100% 100%, 50% 100%, 20% 100%, 0 100%, 0 8%, 30% 8%);
-
+        flex-basis: unset;
         z-index: 2;
     }
 
     h1.title {
         display: none;
+    }
+
+    .left-span {
+        top: 4rem;
+    }
+
+    .tamplates {
+        padding-top: 0;
     }
 }
 
@@ -598,6 +613,9 @@ input[type='file'] {
     .header {
         display: none;
     }
+    .main {
+        margin: 0;
+    }
 
     .container {
         padding: 0;
@@ -605,6 +623,10 @@ input[type='file'] {
     .col-lg-3 {
         margin: 1rem 2rem;
     }
+    .col-sm-6:nth-child(even) {
+        padding-right: 0;
+    }
+
     .card-img {
         height: unset;
     }

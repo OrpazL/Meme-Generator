@@ -67,7 +67,7 @@ function clickForTextBox(ev) {
     };
     console.log('ev', ev);
     // create cover div
-    
+
     // create floating text box
     var inputTextBox = document.createElement('input');
     inputTextBox.setAttribute('id', `floatTextBox-${gCurrTextBox.id}`);
@@ -76,12 +76,11 @@ function clickForTextBox(ev) {
 
     var unfocusTextBox = unCoverCanvas.bind(null, `#floatTextBox-${gCurrTextBox.id}`)
     inputTextBox.onfocusout = unfocusTextBox;
-    
+
     var oninputTextBox = setTxtObjAndPrint.bind(null, `#floatTextBox-${gCurrTextBox.id}`);
     inputTextBox.oninput = oninputTextBox;
     inputTextBox.onkeydown = function () {
         gCurrTextBox = getCurrTxtById(this.getAttribute('data-id'));
-        // console.log('this',this.getAttribute('data-id'))
         var key = event.keyCode || event.charCode;
         var ctx = getCtx();
         if (key == 8 || key == 46) {
@@ -93,17 +92,8 @@ function clickForTextBox(ev) {
         ev.stopPropagation();
         gCurrTextBox = getCurrTxtById(this.getAttribute('data-id'));
         this.focus();
-        // console.log('elId', this.id.substring(13))
-        // console.log('this', this, this.getAttribute('data-id'))
-        // console.log('gcurr',gCurrTextBox)
-        // debugger
-        // document.querySelector(`#floatTextBox-${gCurrTextBox.id}`).focus();
         console.log('input clicked')
-        setPreview('font');
-        setPreview('size');
-        setPreview('color');
-        $('.size-val').text(gCurrTextBox.size);
-        $('.text').text(gCurrTextBox.font);
+        fitPreview();
     };
 
     inputTextBox.ondrag = function (ev) {
@@ -112,16 +102,23 @@ function clickForTextBox(ev) {
         gCurrTextBox.pos.y = getMousePos(getCanvas(), ev).y;
         renderCanvas();
     }
+    inputTextBox.ondrop = function (ev) {
+        gCurrTextBox = getCurrTxtById(this.getAttribute('data-id'));
+        gCurrTextBox.pos.x = getMousePos(getCanvas(), ev).x;
+        gCurrTextBox.pos.y = getMousePos(getCanvas(), ev).y;
+        setTxtObjAndPrint(gCurrTextBox.id)
+        renderCanvas();
+    }
     // style & position textbox
     // inputTextBox.style = {
-        //     ['background-color']: 'transparent',
-        //     border: '1px dashed #d4d1d1',
-        //     position: 'absolute',
+    //     ['background-color']: 'transparent',
+    //     border: '1px dashed #d4d1d1',
+    //     position: 'absolute',
     //     top: (getMousePos(canvas, ev).y - 16.5) + 'px',
     //     left: (getMousePos(canvas, ev).x - 89) + 'px'
     // }
     // inputTextBox.autofocus;
-    
+
     inputTextBox.style['z-index'] = 3;
     inputTextBox.style['background-color'] = 'transparent';
     inputTextBox.style.position = 'absolute';
@@ -168,8 +165,9 @@ function printTextOnCanvas(txtObj) {
 
     ctx.fillStyle = txtObj.color;
     ctx.font = `${txtObj.size}px ${txtObj.font}`;
-    // console.log('txtObj', txtObj)
     ctx.fillText(txtObj.txt, txtObj.pos.x, txtObj.pos.y);
+    document.querySelector('#preview-text').value = txtObj.txt;
+    fitPreview();
 }
 
 function setCurrTextBoxPosById(id) {
@@ -187,11 +185,18 @@ function getCurrTextBoxPosById(id) {
 function openFontNav(navName) {
     $(navName).addClass('open-nav');
     if (navName === '#color-picker') $('#colorWheel').fadeIn();
+    var fontsList = document.querySelectorAll('.font-item');
+    fontsList.forEach(font => font.style['font-family'] = font.innerText);
 }
 
 function closeNav(navName) {
     $(navName).removeClass('open-nav');
     if (navName === '#color-picker') $('#colorWheel').fadeOut();
+}
+
+function onChangePreviewText(elPreviewText) {
+    // var txt = elPreviewText.value;
+    // clickForTextBox();
 }
 
 function changeFont(elFont) {
@@ -214,14 +219,14 @@ function changeFontSize(sign) {
 function setPreview(prop) {
     switch (prop) {
         case 'font':
-            $('.text-preview').css("font-family", gCurrTextBox.font);
+            $('.text-preview #preview-text').css("font-family", gCurrTextBox.font);
             break;
         case 'size':
             let size = gCurrTextBox.size / 10;
-            $('.text-preview').css("font-size", size + 'rem');
+            $('.text-preview #preview-text').css("font-size", size + 'rem');
             break;
         case 'color':
-            $('.text-preview').css("color", gCurrTextBox.color);
+            $('.text-preview #preview-text').css("color", gCurrTextBox.color);
             break;
     }
 }
@@ -233,6 +238,12 @@ function changeColor(selectedColor) {
     setPreview('color');
     renderCanvas();
 }
+
+// NEED TO ADD FEATURE
+// function addFontStroke() {
+
+// }
+
 //change tamplate color
 function changeTColor(colorInput) {
     let color = $(colorInput).attr('id');
@@ -263,6 +274,13 @@ function toggleEditor(canvas) {
     }
 }
 
+function fitPreview() {
+    setPreview('font');
+    setPreview('size');
+    setPreview('color');
+    $('.size-val').text(gCurrTextBox.size);
+    $('.text').text(gCurrTextBox.font);
+}
 
 
 
@@ -303,9 +321,9 @@ $('.scrollToTop').click(function () {
     return false;
 });
 
-$(window).resize(function(){
+$(window).resize(function () {
 
-    if ($(window).width() <= 960) {  
+    if ($(window).width() <= 960) {
         $('.bg-video').html('');
     }
 });

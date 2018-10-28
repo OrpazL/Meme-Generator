@@ -27,3 +27,8 @@
     font-family: LeagueGothic;
     src: url(fontsToText/LeagueGothic-Regular.otf);
 }
+
+@font-face {
+    font-family: Impact;
+    src: url(impact/impact.ttf);
+}

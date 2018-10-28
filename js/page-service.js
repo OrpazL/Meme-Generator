@@ -1,3 +1,5 @@
+const DEFAULT_FONT = 'Impact';
+
 var gNextId = 1;
 var gImages = [
     {id: gNextId++, url: './img/meme-imgs/1.jpg', keywords: ['happy', 'mountain', 'women', 'gress']},
@@ -33,7 +35,7 @@ var gMeme = {
         {
             id: makeId(),
             txt: '',
-            font: 'sans-serif',
+            font: DEFAULT_FONT,
             size: 16,
             color: 'black',
             pos: {
@@ -91,7 +93,7 @@ function setMemeTxtById(id,txt = gMeme.txts[getCurrTxtIdxById(id)].txt,font = ge
         pos,
     };
 }
-function createMemeTxt(txt = '',font = 'sans-serif',size = gMeme.txts[gMeme.txts.length - 1].size ,color = 'black',pos = {x: 20, y: 50}) {
+function createMemeTxt(txt = '',font = gMeme.txts[gMeme.txts.length - 1].font,size = gMeme.txts[gMeme.txts.length - 1].size ,color = gMeme.txts[gMeme.txts.length - 1].color,pos = {x: 20, y: 50}) {
     gMeme.txts.push({
         id: makeId(),
         txt,

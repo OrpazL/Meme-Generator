@@ -83,7 +83,7 @@
             <h5 class="card-title">customize your meme</h5>
             <div class="dropdown">
                 <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    options
+                    Save & Share
                 </a>
                 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
@@ -152,9 +152,11 @@
                         </div>
 
                         <h5 class="card-title controllers-title">text style</h5>
-                        <div class="controllers-item text-preview">Preview Text</div>
+                        <div class="controllers-item text-preview">
+                            <input type="text" id="preview-text" placeholder="Add Text or Click Image" oninput="onChangePreviewText(this)"/>
+                        </div>
                         <div class="controllers-item font-style">
-                            <span class="text">sans-serif</span>
+                            <span class="text">Impact</span>
                             <span class="right-span" onclick="openFontNav('#font-picker')"> | &#x3e;</span>
                         </div>
                         <div id="font-picker" class="nav-background">
@@ -163,6 +165,7 @@
                                 select font
                             </h5>
                             <ul class="font-list">
+                                <li class="font-item" onclick="changeFont(this)">Impact</li>
                                 <li class="font-item" onclick="changeFont(this)">sans-serif</li>
                                 <li class="font-item" onclick="changeFont(this)">chunkfive</li>
                                 <li class="font-item" onclick="changeFont(this)">roboto</li>
@@ -195,7 +198,13 @@
                             <div class="wheel hidden" id="colorWheel"></div>
                             <div class="selected-color"></div>
                         </div>
-
+                        <div class="controllers-item font-stroke">
+                            <label for="font-stroke">
+                                Stroke:
+                                <input type="checkbox" name="font-stroke" onchange="" checked/>
+                            </label>
+                            <!-- NEED TO ADD FEATURE -->
+                        </div>
 
                     </div>
                 </div>

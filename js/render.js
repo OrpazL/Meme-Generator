@@ -263,6 +263,12 @@ function toggleEditor(canvas) {
     }
 }
 
+function toggleMainNav() {
+    if($( window ).width() > 980 ) return;
+
+    $('.controllers-panel').toggleClass('closed__nav');
+}
+
 
 
 

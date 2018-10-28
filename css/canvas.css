@@ -47,6 +47,6 @@
 
 @media (max-width: 420px) {
     .canvas.dynamic-canvas {
-        transform:scale(0.75);
+        width: 100%;
     }
 }

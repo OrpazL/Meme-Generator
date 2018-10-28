@@ -169,6 +169,7 @@ body {
 .row-canvas {
     width: 100%;
     max-height: 400px;
+    overflow: hidden;
 }
 
 .controllers-panel {
@@ -179,6 +180,7 @@ body {
     flex-direction: column;
     align-items: center;
     overflow-y: hidden;
+    transition: all .4s;
 }
 
 .controllers-title {
@@ -557,8 +559,8 @@ input[type='file'] {
         margin: 0;
         width: 86rem;
     }
-    .card-body, .footer-jumbotron {
-        padding: 0;
+    .footer {
+        display: none;
     }
 
     .dropdown ,#imageForm{
@@ -590,6 +592,7 @@ input[type='file'] {
         clip-path: polygon(35% 0, 65% 0, 70% 8%, 100% 8%, 100% 100%, 50% 100%, 20% 100%, 0 100%, 0 8%, 30% 8%);
         flex-basis: unset;
         z-index: 2;
+        top: 295px;
     }
 
     h1.title {
@@ -641,9 +644,8 @@ input[type='file'] {
     .search__input {
         width: unset;
     }
+}
 
-    .controllers-panel{
-        top: 13px;
-        z-index: 2;
-    }
+.closed__nav {
+    top: 0;
 }

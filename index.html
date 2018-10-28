@@ -50,8 +50,9 @@
         </div>
         <div class="card-body select-img">
             <nav class="navbar-form">
-                <form class="search-form search"  onsubmit="startSearch(event)">
-                    <input class="search__input" type="search" placeholder="Search by key word" aria-label="Search" oninput="startSearch(event)">
+                <form class="search-form search" onsubmit="startSearch(event)">
+                    <input class="search__input" type="search" placeholder="Search by key word" aria-label="Search"
+                        oninput="startSearch(event)">
                     <button class="search__button">
                         <svg class="search__icon">
                             <use xlink:href="img/sprite.svg#icon-magnifying-glass"></use>
@@ -61,7 +62,7 @@
 
                 <label id="imageLabel" for="imageForm">upload image</label>
                 <input type="file" id="imageForm" name="imageForm" onchange="onFileInputChange(event)" />
-                
+
             </nav>
 
             <h5 class="card-title">select your image</h5>
@@ -82,10 +83,11 @@
         <div class="card-body select-text d-none">
             <h5 class="card-title">customize your meme</h5>
             <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     Save & Share
                 </a>
-                
+
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item share" href="#">Share</a>
                     <a class="dropdown-item" href="#" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
@@ -105,27 +107,28 @@
                         <div class="canvas-style">
                             <h3 class="card-title canvas-title" onclick="toggleEditor()">more options</h3>
                             <h5 class="card-title">select tamplate</h5>
-                            
+
                             <div class="tamplates">
 
                                 <input type="radio" name="tamplate" id="top-title" class="top-title" onchange="renderCanvas()">
-                                <label class="tamplate"for="top-title">
+                                <label class="tamplate" for="top-title">
                                     <span class="top">top</span>
                                 </label>
 
                                 <input type="radio" name="tamplate" id="bottom-title" class="bottom-title" onchange="renderCanvas()">
-                                <label class="tamplate"for="bottom-title">
+                                <label class="tamplate" for="bottom-title">
                                     <span class="bottom bottom-fix">bottom</span>
                                 </label>
 
                                 <input type="radio" name="tamplate" id="double-title" class="double-title" onchange="renderCanvas()">
-                                <label class="tamplate"for="double-title">
+                                <label class="tamplate" for="double-title">
                                     <span class="top">top</span>
                                     <span class="bottom">bottom</span>
                                 </label>
 
-                                <input type="radio" name="tamplate" id="solid" class="no-title" onchange="renderCanvas()" checked>
-                                <label class="tamplate"for="solid"> 
+                                <input type="radio" name="tamplate" id="solid" class="no-title" onchange="renderCanvas()"
+                                    checked>
+                                <label class="tamplate" for="solid">
                                 </label>
                             </div>
 
@@ -135,7 +138,7 @@
                                     <li id="yellow" class="color-item" onclick="changeTColor(this)"></li>
                                     <li id="red" class="color-item" onclick="changeTColor(this)"></li>
                                     <li id="blue" class="color-item" onclick="changeTColor(this)"></li>
-                                    <li class="color-item add-color" onclick="openFontNav('#color-title')"> 
+                                    <li class="color-item add-color" onclick="openFontNav('#color-title')">
                                         <span> &#x2b;</span>
                                     </li>
                                 </ul>
@@ -146,14 +149,15 @@
                                 <span class="left-span tamplate-span" onclick="closeNav('#color-title')">&#x3c; </span>
 
                                 <div class="wheel hidden" id="colorWheelS"></div>
-                                <div class="selected-color title-background"><input type="hidden" name="colorate" id="color-input" class="title-color"></div>
+                                <div class="selected-color title-background"><input type="hidden" name="colorate" id="color-input"
+                                        class="title-color"></div>
                             </div>
-                            
+
                         </div>
 
-                        <h5 class="card-title controllers-title">text style</h5>
+                        <h5 class="card-title controllers-title" onclick="toggleMainNav()">text style</h5>
                         <div class="controllers-item text-preview">
-                            <input type="text" id="preview-text" placeholder="Add Text or Click Image" oninput="onChangePreviewText(this)"/>
+                            <input type="text" id="preview-text" placeholder="Add Text or Click Image" oninput="onChangePreviewText(this)" />
                         </div>
                         <div class="controllers-item font-style">
                             <span class="text">Impact</span>
@@ -201,7 +205,7 @@
                         <div class="controllers-item font-stroke">
                             <label for="font-stroke">
                                 Stroke:
-                                <input type="checkbox" name="font-stroke" onchange="" checked/>
+                                <input type="checkbox" name="font-stroke" onchange="" checked />
                             </label>
                             <!-- NEED TO ADD FEATURE -->
                         </div>

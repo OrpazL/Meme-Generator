@@ -281,6 +281,12 @@ function fitPreview() {
     $('.size-val').text(gCurrTextBox.size);
     $('.text').text(gCurrTextBox.font);
 }
+function toggleMainNav() {
+    if($( window ).width() > 980 ) return;
+
+    $('.controllers-panel').toggleClass('closed__nav');
+}
+
 
 
 

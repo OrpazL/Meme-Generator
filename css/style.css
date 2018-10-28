@@ -16,8 +16,8 @@ body {
     line-height: 1.7;
     position: relative;
     min-height: 100vh;
+    min-width: 100vw;
 }
-
 * {
     box-sizing: border-box;
 }
@@ -169,6 +169,7 @@ body {
 .row-canvas {
     width: 100%;
     max-height: 400px;
+    overflow: hidden;
 }
 
 .controllers-panel {
@@ -179,6 +180,7 @@ body {
     flex-direction: column;
     align-items: center;
     overflow-y: hidden;
+    transition: all .4s;
 }
 
 .controllers-title {
@@ -486,7 +488,6 @@ input[type='file'] {
 }
 
 .footer-container .lead{
-    width: 40%;
     margin: 0 auto;
     text-align: center;
 }
@@ -558,8 +559,16 @@ input[type='file'] {
         margin: 0;
         width: 86rem;
     }
-    .card-body, .footer-jumbotron {
-        padding: 0;
+    .footer {
+        display: none;
+    }
+
+    .dropdown ,#imageForm{
+        position: absolute;
+        background-color: #1679e4;
+        border-radius: 3px;
+        top: 1.5rem;
+        right: 2rem;
     }
 
     .row-canvas {
@@ -581,12 +590,21 @@ input[type='file'] {
     .controllers-panel {
         -webkit-clip-path: polygon(35% 0, 65% 0, 70% 8%, 100% 8%, 100% 100%, 50% 100%, 20% 100%, 0 100%, 0 8%, 30% 8%);
         clip-path: polygon(35% 0, 65% 0, 70% 8%, 100% 8%, 100% 100%, 50% 100%, 20% 100%, 0 100%, 0 8%, 30% 8%);
-
+        flex-basis: unset;
         z-index: 2;
+        top: 295px;
     }
 
     h1.title {
         display: none;
+    }
+
+    .left-span {
+        top: 4rem;
+    }
+
+    .tamplates {
+        padding-top: 0;
     }
 }
 
@@ -598,13 +616,25 @@ input[type='file'] {
     .header {
         display: none;
     }
+    .main {
+        margin: 0;
+    }
 
     .container {
         padding: 0;
     }
-    .col-lg-3 {
-        margin: 1rem 2rem;
+
+    .album__row {
+        justify-content: center;
+        margin-right: 0;
+        margin-left: 0;
     }
+    .col-lg-3 {
+        margin: 1rem 0;
+        width: 90%;
+        padding: 0;
+    }
+
     .card-img {
         height: unset;
     }
@@ -614,9 +644,8 @@ input[type='file'] {
     .search__input {
         width: unset;
     }
+}
 
-    .controllers-panel{
-        top: 13px;
-        z-index: 2;
-    }
+.closed__nav {
+    top: 0;
 }
